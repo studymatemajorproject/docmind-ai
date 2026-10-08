@@ -1,11 +1,10 @@
 import Link from "next/link";
 
 const links = [
-  { name: "Home", href: "/" },
-  { name: "Features", href: "features" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Docs", href: "#docs" },
-  { name: "About", href: "#about" },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "Features", href: "/features" },
+  { name: "Docs", href: "/docs" },
+  { name: "About", href: "/about" },
 ];
 
 export default function Navigation() {

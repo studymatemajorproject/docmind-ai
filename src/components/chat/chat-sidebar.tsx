@@ -7,11 +7,14 @@ import {
   Plus,
   Search,
   Settings,
+  LogOut,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { createClient } from "@/lib/supabase/client";
 
 const chats = [
   {
@@ -33,6 +36,15 @@ const chats = [
 ];
 
 export function ChatSidebar() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    router.replace("/sign-in");
+    router.refresh();
+  }
+
   return (
     <aside className="flex h-screen w-72 flex-col border-r bg-muted/30">
       {/* Header */}
@@ -96,12 +108,23 @@ export function ChatSidebar() {
       <div className="p-3">
         <Separator className="mb-3" />
 
+        {/* Settings */}
         <Button
           variant="ghost"
           className="w-full justify-start gap-2 font-normal"
         >
           <Settings className="h-4 w-4" />
           Settings
+        </Button>
+
+        {/* Logout */}
+        <Button
+          variant="ghost"
+          onClick={handleLogout}
+          className="mt-1 w-full justify-start gap-2 font-normal text-muted-foreground hover:text-destructive"
+        >
+          <LogOut className="h-4 w-4" />
+          Log out
         </Button>
       </div>
     </aside>
